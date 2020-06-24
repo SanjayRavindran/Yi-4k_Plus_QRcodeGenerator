@@ -1,0 +1,16 @@
+{
+  "name": "qrcode.js",
+  "version": "0.0.1",
+  "homepage": "",
+  "authors": [ "Sanjay Ravindran", "Sanjay Ravindran<sanjaymrt.1997@gmail.com>" ],
+  "description": "QRCode generator",
+  "main": "qrcode.js",
+  "ignore": [
+    "bower_components",
+    "node_modules",
+    "index.html",
+    "index.svg",
+    "jquery.min.js",
+    "qrcode.min.js"
+  ]
+}

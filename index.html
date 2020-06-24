@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>QRCode generator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="qrcode.js"></script>
+	<style>
+		table {
+		  font-family: arial, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+
+		td, th {
+		  text-align: Center;
+		  padding: 15px;
+		}
+
+		tr{
+		  background-color: #dddddd;
+		}
+		
+		input[type=text], select {
+		  width: 70%;
+		  padding: 12px 20px;
+		  margin: 8px 0;
+		  display: inline-block;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  box-sizing: border-box;
+		}
+		
+		input[type=select] {
+		  width: 100%;
+		  padding: 12px 20px;
+		  margin: 8px 0;
+		  display: inline-block;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  box-sizing: border-box;
+		}
+		
+		input[type=submit] {
+		  width: 100%;
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 14px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  border-radius: 4px;
+		  cursor: pointer;
+		  width:25%
+		}
+
+		input[type=submit]:hover {
+		  background-color: #45a049;
+		}
+	</style>
+</head>
+<body>
+<center><h2>QR Code Generator For YI 4K+ - To live stream</h2></center>
+
+<script>
+(function() {
+	function toJSONString( form ) {
+		var obj = {};
+		var elements = form.querySelectorAll( "input, select" );
+		for( var i = 0; i < elements.length; ++i ) {
+			var element = elements[i];
+			var name = element.name;
+			var value = element.value;
+
+			if( name ) {
+				obj[ name ] = value;
+			}
+		}
+		var qrcode = new QRCode(
+		document.getElementById("qrcode"), {text: JSON.stringify(obj),width: 300,height: 300,correctLevel : QRCode.CorrectLevel.M});
+		
+		return JSON.stringify( obj );
+	}
+
+	document.addEventListener( "DOMContentLoaded", function() {
+		var form = document.getElementById( "Generator" );
+		var output = document.getElementById( "output" );
+		form.addEventListener( "submit", function( e ) {
+			e.preventDefault();
+			var json = toJSONString( this );
+			output.innerHTML = json;
+
+		}, false);
+
+	});
+
+})();
+</script>
+
+<script> 
+		function clearcontent(elementID) { 
+			document.getElementById(elementID).innerHTML = ""; 
+		} 
+	</script> 
+	
+<body>
+	<form id="Generator" action="#" method="post">
+	<table style="width:100%">
+		  <tr>
+			<td><label for="ssid">Wi-Fi Name</label></td>
+			<td><input type="text" id="ssid" name="ssid"></td>
+			
+			<td rowspan=8>
+			
+			<div align="center" id="qrcode"></div>
+				<br/>
+				<small>Scan code with camera in live mode to go live</small>
+			</td>
+		  </tr>
+		  <tr>
+			<td><label for="pwd">Wi-Fi Password</label></td>
+			<td><input type="text" id="pwd" name="pwd"></td>
+		  </tr>
+		  <tr>
+			<td><label for="res">Resoultion</label></td>
+			<td>			
+			<select id="res" name="res">
+			  <option value="1080p">FHD 1080p</option>
+			  <option value="720p">HD 720p</option>
+			  <option value="480p">SD 480p</option>
+			</select>
+			</td>
+		  </tr>
+		  <tr>
+			<td><label for="rate">Rate</label></td>
+			<td><select id="rate" name="rate">
+			  <option value="0">Auto</option>
+			  <option value="1">Low 0.6 Mbps</option>
+			  <option value="2">Medium 0.8 Mbps</option>
+			  <option value="3">High 1.2 Mbps</option>
+			</select>
+			</td>
+		  </tr>
+		  <tr>
+		  <td><label for="dur">Infinate Duration</label></td>
+		  <td><input type="radio" id="dur" name="dur" value="0" checked="checked"></td>
+			</tr>
+		  <tr>
+			<td><label for="url">Network URL for live / Server URL</label></td>
+			<td><input type="text" id="url" name="url"></td>
+		  </tr>
+		  
+		  <td><label for="ak">Default Value</label></td>
+		  <td><input type="radio" id="ak" name="ak" value="0" checked="checked"></td>
+			</tr>
+			<tr>
+		  <td><label for="sign">Default Value</label></td>
+		  <td><input type="radio" id="sign" name="sign" value="" checked="checked"></td>
+			</tr>
+			<tr>
+			<td colspan=3><input id="submit" type="submit" value="Generate" onclick = "clearcontent('qrcode')"></td>
+			</tr>
+			<tr>
+	</table>
+	</form>
+	<center><small>this page will never record your personal data.</small></center>
+
+<!--<pre id="output"></pre>-->
+</body>
+</html>
